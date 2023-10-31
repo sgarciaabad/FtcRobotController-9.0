@@ -65,31 +65,46 @@ public class MinibotEncoderAut extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
+        int position = 1; // 0 is left, 1 is center, 2 is right, will be given from the camera code
+
         double offset = 0.0;
         double distance = 24; //inches
 
 
         while (opModeIsActive()) {
-
-            // Step through each leg of the path,
-            // Note: Reverse movement is obtained by setting a negative distance (not speed)
-            robotAuto.encoderDrive(DRIVE_SPEED, 34, 34, 3.5);  // S1: Forward 47 Inches with 5 Sec timeout
-            sleep(1000);
-            robotAuto.encoderDrive(DRIVE_SPEED, -30, -30, 3.5);  // S3: Reverse 24 Inches with 4 Sec timeout
-            sleep(1000);
-            robotAuto.encoderDrive(TURN_SPEED, 12, -12, 1.15);  // S2: Turn Right 12 Inches with 4 Sec timeout
-            sleep(1000);
-
-            robotAuto.encoderDrive(DRIVE_SPEED, 56, 56, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
-            sleep(1000);
-            robotAuto.encoderDrive(TURN_SPEED, -12, 12, 1.15);  // S2: Turn Right 12 Inches with 4 Sec timeout
-            sleep(1000);
-            robotAuto.encoderDrive(DRIVE_SPEED, 38, 38, 3.0);
-            sleep(1000);
-            robotAuto.encoderDrive(TURN_SPEED, 12, -12, 1.15);  // S2: Turn Right 12 Inches with 4 Sec timeout
-            sleep(1000);
-            //robotAuto.encoderDrive(DRIVE_SPEED, 8, 8, 1.05);
-
+            if (position == 1) { //center
+                // Step through each leg of the path,
+                // Note: Reverse movement is obtained by setting a negative distance (not speed)
+                robotAuto.encoderDrive(DRIVE_SPEED, 32, 32, 3);  // S1: Forward 47 Inches with 5 Sec timeout
+                sleep(1000);
+                robotAuto.encoderDrive(DRIVE_SPEED, -26, -26, 3);  // S3: Reverse 24 Inches with 4 Sec timeout
+                sleep(1000);
+                robotAuto.encoderDrive(TURN_SPEED, 12, -12, 1.15);  // S2: Turn Right 12 Inches with 4 Sec timeout
+                sleep(1000);
+                robotAuto.encoderDrive(DRIVE_SPEED, 48, 48, 4.5);  // S1: Forward 47 Inches with 5 Sec timeout
+                sleep(1000);
+                robotAuto.encoderDrive(TURN_SPEED, -12, 12, 1.15);  // S2: Turn Right 12 Inches with 4 Sec timeout
+                sleep(10000);
+                robotAuto.encoderDrive(DRIVE_SPEED, 32, 32, 3.0);
+                sleep(1000);
+                robotAuto.encoderDrive(TURN_SPEED, 12, -12, 1.12);  // S2: Turn Right 12 Inches with 4 Sec timeout
+                sleep(1000);
+                robotAuto.encoderDrive(DRIVE_SPEED, 8, 8, 1.05);
+            }
+            else if (position == 0) { // left
+                robotAuto.encoderDrive(DRIVE_SPEED, 32, 32, 3);  // S1: Forward 47 Inches with 5 Sec timeout
+                sleep(1000);
+                robotAuto.encoderDrive(TURN_SPEED, -12, 12, 1.15);  // S2: Turn Left 12 Inches with 4 Sec timeout
+                sleep(1000);
+                robotAuto.encoderDrive(TURN_SPEED, -12, 12, 1.15);  // S2: Turn Left 12 Inches with 4 Sec timeout
+                sleep(1000);
+            }
+            else { //right
+                robotAuto.encoderDrive(DRIVE_SPEED, 32, 32, 3);  // S1: Forward 47 Inches with 5 Sec timeout
+                sleep(1000);
+                robotAuto.encoderDrive(TURN_SPEED, -12, 12, 1.15);  // S2: Turn Right 12 Inches with 4 Sec timeout
+                sleep(1000);
+            }
 
             telemetry.addData("Path", "Complete");
             telemetry.update();
